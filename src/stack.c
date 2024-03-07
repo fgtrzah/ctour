@@ -1,11 +1,9 @@
-#include <stdio.h>
 #include "../include/stack.h"
+#include <stdio.h>
 
-void init(struct Stack *s) {
-  s->top = -1;
-}
+void Stack_init(struct Stack *s) { s->top = -1; }
 
-void push(struct Stack *s, int x) {
+void Stack_push(struct Stack *s, int x) {
   if (s->top < MAX) {
     s->items[++s->top] = x;
   } else {
@@ -13,7 +11,7 @@ void push(struct Stack *s, int x) {
   }
 }
 
-int pop(struct Stack *s) {
+int Stack_pop(struct Stack *s) {
   if (s->top > -1) {
     return s->items[s->top--];
   } else {
@@ -22,7 +20,7 @@ int pop(struct Stack *s) {
   }
 }
 
-int peek(struct Stack *s) {
+int Stack_peek(struct Stack *s) {
   if (s->top > -1) {
     return s->items[s->top];
   } else {
