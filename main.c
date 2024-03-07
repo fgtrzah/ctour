@@ -42,7 +42,7 @@ int main() {
 
   LinkedList_append(l, 4);
 
-  assert(LinkedList_search(l, 1).data == 4);
+  assert(l->head->next->data == 4);
   // end: linked list
 
   printf("All tests passed successfully!\n");
