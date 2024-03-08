@@ -12,6 +12,6 @@ void LinkedList_init(struct LinkedList *h, int x);
 LinkedListNode LinkedList_search(struct LinkedList *h, int x);
 void LinkedList_append(struct LinkedList *h, int x);
 LinkedListNode LinkedList_insert(struct LinkedList *h, int i, int x);
-void LinkedList_delete(struct LinkedList *h, int i);
+int LinkedList_delete(struct LinkedList *h, int i);
 
 #endif

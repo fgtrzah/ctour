@@ -22,20 +22,24 @@ LinkedListNode LinkedList_search(struct LinkedList *h, int i) {
 }
 
 void LinkedList_append(struct LinkedList *h, int x) {
+  if (!h || !h->head || !x) {
+    return;
+  } 
+
+  int nnsize = sizeof(int) + 2 * sizeof(struct LinkedListNode);
   struct LinkedListNode *c = h->head;
-  int ci = 0;
 
   while (c->next) {
     c = c->next;
   }
 
-  struct LinkedListNode *nn =
-      malloc(sizeof(int) + 2 * sizeof(struct LinkedListNode));
+  struct LinkedListNode *nn = malloc(nnsize); 
   nn->data = x;
   nn->next = NULL;
   c->next = nn;
 }
 
+// TODO: rename h to l
 LinkedListNode LinkedList_insert(struct LinkedList *h, int i, int x) {
   int nnsize = sizeof(int) + 2 * sizeof(struct LinkedListNode);
 
@@ -65,7 +69,7 @@ LinkedListNode LinkedList_insert(struct LinkedList *h, int i, int x) {
   }
 
   struct LinkedListNode *nn = malloc(nnsize);
-  
+   
   nn->data = x;
   nn->next = prev->next;
   prev->next = nn;
@@ -73,4 +77,38 @@ LinkedListNode LinkedList_insert(struct LinkedList *h, int i, int x) {
   return *h->head;
 }
 
-void LinkedList_delete(struct LinkedList *h, int i) {}
+int LinkedList_delete(struct LinkedList *l, int i) {
+  if (!l || !l->head) {
+    return -1;
+  }
+  
+  int ret;
+  int nnsize = sizeof(int) + 2 * sizeof(struct LinkedListNode);
+
+  if (!i) {
+    ret = l->head->data; 
+    l->head = l->head->next;
+    return ret;
+  }
+
+  struct LinkedListNode *curr = l->head;
+  struct LinkedListNode *prev = malloc(nnsize);
+  int count = 0;
+
+  while (count < i && curr) {
+    prev = curr;
+    curr = curr->next;
+    count++;
+  }
+
+  if (curr) {
+    ret = curr->data;
+    prev->next = curr->next;
+    curr->next = NULL; 
+  } else {
+    printf("invalid index");
+    return -1;
+  }
+
+  return ret; 
+}
