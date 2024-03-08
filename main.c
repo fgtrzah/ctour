@@ -47,12 +47,8 @@ int main() {
 
   struct LinkedListNode *nnr1 = malloc(llncap);
   *nnr1 = LinkedList_insert(l, 1, 3);
-  printf("nnr1 %d\n", nnr1->data);
-  printf("nnr1 %d\n", nnr1->next->data);
-  printf("l->head %d\n", l->head->data);
-  printf("l->head->next %d\n", l->head->next->data);
-  printf("l->head->next %d\n", l->head->next->next->data);
-  // assert(LinkedList_search(l, 1).data == 3);
+  assert(l->head->next->data == 3);
+  assert(l->head->next->next->data == 4);
   // end: linked list
 
   printf("All tests passed successfully!\n");
