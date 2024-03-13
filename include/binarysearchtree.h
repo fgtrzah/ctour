@@ -5,16 +5,21 @@
 
 struct BinarySearchTree {
   struct BinarySearchTreeNode *root;
+  int size;
 };
-
 typedef struct BinarySearchTree BinarySearchTree;
 
-void print_node(struct BinarySearchTreeNode *n);
-void print_t_po(struct BinarySearchTreeNode *t);
-BinarySearchTree BinarySearchTree_init(int *data, int size);
-void BinarySearchTree_insert_tree_node(struct BinarySearchTree *t, int x);
-void BinarySearchTree_insert_node(struct BinarySearchTreeNode *c, int x);
-BinarySearchTreeNode BinarySearchTree_search_tree_node(struct BinarySearchTree *t, int x);
-BinarySearchTreeNode BinarySearchTree_search_node(struct BinarySearchTreeNode *c, int x);
+void BinarySearchTree_init(struct BinarySearchTree *t, int *datum, int size);
+struct BinarySearchTreeNode* BinarySearchTree_init_rec(int arr[], int start, int end);
+struct BinarySearchTreeNode* BinarySearchTree_search(struct BinarySearchTreeNode *x, int k);
+void BinarySearchTree_insert(struct BinarySearchTree *t, int z);
+void BinarySearchTree_delete(struct BinarySearchTree *t, int d);
+BinarySearchTreeNode BinarySearchTree_successor(struct BinarySearchTreeNode *x);
+BinarySearchTreeNode BinarySearchTree_predecessor(struct BinarySearchTreeNode *x);
+BinarySearchTreeNode BinarySearchTree_max(struct BinarySearchTreeNode *x);
+BinarySearchTreeNode BinarySearchTree_min(struct BinarySearchTreeNode *x);
+void BinarySearchTree_in_order(struct BinarySearchTreeNode *x);
+void BinarySearchTree_pre_order(struct BinarySearchTreeNode *x);
+void BinarySearchTree_post_order(struct BinarySearchTreeNode *x);
 
 #endif

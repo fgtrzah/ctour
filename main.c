@@ -62,23 +62,22 @@ void test_linkedlist() {
   assert(LinkedList_delete(m, 0) == 1);
 }
 
+void print_node(struct BinarySearchTreeNode *x) {
+  printf("%d \n", x->data);
+  printf("%p \n ", (void *)x->left);
+  printf("%p \n ", (void *)x->right);
+}
+
 void test_bst() {
-  int fixture[] = {1, 2, 4, 5, 6, 8, 9, 12, 14, 18};
-  struct BinarySearchTree *ct = malloc(40 * sizeof(struct BinarySearchTree));
-  *ct = BinarySearchTree_init(fixture, sizeof(fixture) / sizeof(int));
-
-  assert(ct->root->data == 1);
-  print_t_po(ct->root);
-  // printf("%d ", ct->root->left->left->data);
-  // printf("%i \n", ct->root->right->right->data);
-
-  for (int i = 0; i < sizeof(fixture) / sizeof(int); i++) {
-    // BinarySearchTreeNode n = BinarySearchTree_search_tree_node(ct,
-    // fixture[i]); printf("%d \n", n.data); printf("%d",
-    // BinarySearchTree_search_tree_node(&ct, fixture[i]).data);
-  }
-  // printf("%d", ct.root->left->data);
-  // printf("%d", ct.root->right->data);
+  int fixture[] = {1, 2, 3, 4, 10, 16, 17, 18, 25};
+  int fsize = sizeof(fixture) / sizeof(fixture[0]);
+  struct BinarySearchTree *t =
+      malloc((sizeof(struct BinarySearchTree) +
+              fsize * sizeof(struct BinarySearchTreeNode)));
+  BinarySearchTree_init(t, fixture, fsize);
+  printf("%d \n", BinarySearchTree_search(t->root, 10)->data);
+  print_node((void *) t->root);
+  assert(1);
 }
 
 int main() {
