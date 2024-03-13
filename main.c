@@ -65,14 +65,12 @@ void test_linkedlist() {
 void test_bst() {
   BST *bst = createBST();
 
-  // Insert some elements
-  insert(bst, 50);
-  insert(bst, 30);
-  insert(bst, 20);
-  insert(bst, 40);
-  insert(bst, 70);
-  insert(bst, 60);
-  insert(bst, 80);
+  int datum[] = {50, 30, 20, 40, 70, 60, 80};
+  int fsize = sizeof(datum) / sizeof(datum[0]);
+
+  for (int i = 0; i < fsize; i++) {
+    insert(bst, datum[i]);
+  }
 
   BSTTreeNode *result = search(bst, 20);
 
@@ -85,22 +83,28 @@ void test_bst() {
   assert(search(bst, 90) == NULL);
 
   // Perform traversals
-  printf("Inorder traversal: ");
+  printf("iot: ");
   inorderTraversal(bst->root);
   printf("\n");
 
-  printf("Preorder traversal: ");
+  printf("peot: ");
   preorderTraversal(bst->root);
   printf("\n");
 
-  printf("Postorder traversal: ");
+  printf("pot: ");
   postorderTraversal(bst->root);
   printf("\n");
 
   // Destroy the BST
   destroyBST(bst);
   bst = NULL;
-  assert((int) !bst);
+
+  assert((int)!bst);
+
+  bst = initializeBST(datum, fsize);
+
+  assert(search(bst, 155) == NULL);
+  assert(search(bst, 60) != NULL);
 }
 
 int main() {

@@ -13,6 +13,7 @@ typedef struct BST {
 
 // Function prototypes
 BST* createBST();
+BST* initializeBST(int datum[], int n);
 void destroyBST(BST *bst);
 void insert(BST *bst, int data);
 void removeNode(BST *bst, int data);

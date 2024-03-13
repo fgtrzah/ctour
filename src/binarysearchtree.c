@@ -11,6 +11,16 @@ BST *createBST() {
   return bst;
 }
 
+BST *initializeBST(int datum[], int n) {
+  BST *bst = createBST();
+
+  for (int i = 0; i < n; i++) {
+    insert(bst, datum[i]);
+  }
+
+  return bst;
+}
+
 // Function to destroy the tree
 void destroyTree(BSTTreeNode *root) {
   if (root) {
