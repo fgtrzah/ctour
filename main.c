@@ -74,13 +74,15 @@ void test_bst() {
   insert(bst, 60);
   insert(bst, 80);
 
-  // Search for an element
   BSTTreeNode *result = search(bst, 20);
+
   assert(result->data == 20);
 
-  // Remove an element
   removeNode(bst, 20);
+
   assert(search(bst, 20) == NULL);
+  assert(search(bst, 50) != NULL);
+  assert(search(bst, 90) == NULL);
 
   // Perform traversals
   printf("Inorder traversal: ");
@@ -97,6 +99,8 @@ void test_bst() {
 
   // Destroy the BST
   destroyBST(bst);
+  bst = NULL;
+  assert((int) !bst);
 }
 
 int main() {
