@@ -1,7 +1,7 @@
 #include "include/binarysearchtree.h"
-#include "include/binarysearchtreenode.h"
 #include "include/linkedlist.h"
 #include "include/linkedlistnode.h"
+#include "include/queue.h"
 #include "include/stack.h"
 #include <assert.h>
 #include <stdio.h>
@@ -86,11 +86,9 @@ void test_bst() {
   printf("iot: ");
   inorderTraversal(bst->root);
   printf("\n");
-
   printf("peot: ");
   preorderTraversal(bst->root);
   printf("\n");
-
   printf("pot: ");
   postorderTraversal(bst->root);
   printf("\n");
@@ -107,10 +105,28 @@ void test_bst() {
   assert(search(bst, 60) != NULL);
 }
 
+void test_queue() {
+  int datum[] = {1,2,3,4,5};
+  int dsize = sizeof(datum) / sizeof(datum[0]);
+  struct Queue *q = (Queue *)malloc(sizeof(struct Queue));
+
+  for (int i = 0; i < dsize; i++) {
+    printf("%d\n", datum[i]);
+    enqueue(q, datum[i]);
+  }
+
+  for (int i = 0; i < dsize; i++) {
+    assert(datum[i] == dequeue(q));
+  }
+
+  assert(sizeof(*q) == 16);
+}
+
 int main() {
   test_stack();
   test_linkedlist();
   test_bst();
+  test_queue();
 
   printf("All tests passed successfully!\n");
 
