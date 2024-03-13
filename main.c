@@ -1,3 +1,5 @@
+#include "include/binarysearchtree.h"
+#include "include/binarysearchtreenode.h"
 #include "include/linkedlist.h"
 #include "include/linkedlistnode.h"
 #include "include/stack.h"
@@ -5,8 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
-  // start: stack
+void test_stack() {
   struct Stack *stack = malloc(sizeof(struct Stack));
 
   Stack_init(stack);
@@ -26,8 +27,9 @@ int main() {
   assert(Stack_pop(stack) == 20);
   assert(Stack_pop(stack) == 10);
   assert(Stack_pop(stack) == -1);
-  // end: stack
-  // start: linked list
+}
+
+void test_linkedlist() {
   int lcap = sizeof(struct LinkedList) + 2 * sizeof(struct LinkedListNode) +
              sizeof(int);
   int llncap = sizeof(int) + 2 * sizeof(struct LinkedListNode);
@@ -45,7 +47,7 @@ int main() {
   assert(l->head->next->next->data == 4);
 
   struct LinkedList *m = malloc(2 * lcap + (2 * llncap));
-  
+
   assert(LinkedList_delete(m, 0) == -1);
   assert(LinkedList_delete(NULL, 0) == -1);
 
@@ -58,8 +60,20 @@ int main() {
   assert(LinkedList_delete(m, 2) == 6);
   assert(LinkedList_delete(m, 1) == 5);
   assert(LinkedList_delete(m, 0) == 1);
-  
-  // end: linked list
+}
+
+void test_bst() {
+  int fixture[] = {1, 2, 4, 5, 6, 8, 9, 12, 14, 18};
+  struct BinarySearchTree ct = BinarySearchTree_init(fixture, sizeof(fixture) / sizeof(int));
+  assert(ct.root->data == 1);
+  assert(ct.root->left->data);
+  assert(ct.root->right->data);
+}
+
+int main() {
+  test_stack();
+  test_linkedlist();
+  test_bst();
 
   printf("All tests passed successfully!\n");
 
