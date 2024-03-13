@@ -5,40 +5,32 @@
 void print_node(struct BinarySearchTreeNode *n) {
   if (!n || !n->data) {
     printf("empty");
-    return;
+  } else {
+    printf("%d\n", n->data);
+    printf("l: %d r: %d p: %d", n->left->data, n->right->data, n->parent->data);
   }
-
-  printf("%d\n", n->data);
-  if (n->left)
-    printf("%d ", n->left->data);
-  if (n->right)
-    printf("%d ", n->right->data);
 }
 
 void print_t_po(struct BinarySearchTreeNode *t) {
   if (!t || !t->data)
     return;
 
-  print_node(t);
+  printf("%d", t->data);
+
   print_t_po(t->left);
   print_t_po(t->right);
 }
 
-BinarySearchTree BinarySearchTree_init(int * data, int size) {
-  printf("%lu\t%lu\t\n", sizeof(data), sizeof(int));
+BinarySearchTree BinarySearchTree_init(int *data, int size) {
   struct BinarySearchTree *t =
-      malloc(size * (sizeof(int) + 3 * sizeof(struct BinarySearchTreeNode)));
+      malloc(size * (sizeof(int) + (3 * sizeof(struct BinarySearchTreeNode))));
   t = &((BinarySearchTree){
       &((struct BinarySearchTreeNode){data[0], NULL, NULL, NULL})});
-
-  __auto_type x = t;
 
   for (int i = 0; i < size; i++) {
     BinarySearchTree_insert_tree_node(t, data[i]);
   }
 
-  struct BinarySearchTreeNode *ct = t->root;
-  print_t_po(ct);
   return *t;
 }
 
@@ -86,9 +78,11 @@ BinarySearchTree_search_tree_node(struct BinarySearchTree *t, int x) {
 
 BinarySearchTreeNode
 BinarySearchTree_search_node(struct BinarySearchTreeNode *c, int x) {
-  if (!c || c->data == x) {
-    return *c;
+  if (!c) {
+    return (BinarySearchTreeNode){-1, NULL, NULL, NULL};
   }
+  if (c->data == x)
+    return *c;
 
   int cd = c->data;
 

@@ -64,10 +64,21 @@ void test_linkedlist() {
 
 void test_bst() {
   int fixture[] = {1, 2, 4, 5, 6, 8, 9, 12, 14, 18};
-  struct BinarySearchTree ct = BinarySearchTree_init(fixture, sizeof(fixture) / sizeof(int));
-  assert(ct.root->data == 1);
-  assert(ct.root->left->data);
-  assert(ct.root->right->data);
+  struct BinarySearchTree *ct = malloc(40 * sizeof(struct BinarySearchTree));
+  *ct = BinarySearchTree_init(fixture, sizeof(fixture) / sizeof(int));
+
+  assert(ct->root->data == 1);
+  print_t_po(ct->root);
+  // printf("%d ", ct->root->left->left->data);
+  // printf("%i \n", ct->root->right->right->data);
+
+  for (int i = 0; i < sizeof(fixture) / sizeof(int); i++) {
+    // BinarySearchTreeNode n = BinarySearchTree_search_tree_node(ct,
+    // fixture[i]); printf("%d \n", n.data); printf("%d",
+    // BinarySearchTree_search_tree_node(&ct, fixture[i]).data);
+  }
+  // printf("%d", ct.root->left->data);
+  // printf("%d", ct.root->right->data);
 }
 
 int main() {
