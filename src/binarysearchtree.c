@@ -2,36 +2,132 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void BinarySearchTree_init(struct BinarySearchTree *t, int *datum, int size) {
-  struct BinarySearchTreeNode *r = malloc(sizeof(struct BinarySearchTreeNode));
-  r = BinarySearchTree_init_rec(datum, 0, size);
-  t->root = r;
+// Function to create a new tree
+BST *createBST() {
+  BST *bst = (BST *)malloc(sizeof(BST));
+  if (bst) {
+    bst->root = NULL;
+  }
+  return bst;
 }
 
-struct BinarySearchTreeNode *BinarySearchTree_init_rec(int datum[], int start,
-                                                       int end) {
-  if (start > end)
-    return NULL;
+// Function to destroy the tree
+void destroyTree(BSTTreeNode *root) {
+  if (root) {
+    destroyTree(root->left);
+    destroyTree(root->right);
+    free(root);
+  }
+}
 
-  int mid = (start + end) / 2;
+void destroyBST(BST *bst) {
+  if (bst) {
+    destroyTree(bst->root);
+    free(bst);
+  }
+}
 
-  struct BinarySearchTreeNode *root =
-      &((BinarySearchTreeNode){datum[mid], NULL, NULL, NULL});
+void insertNode(BSTTreeNode **root, int data) {
+  if (*root == NULL) {
+    BSTTreeNode *newNode = (BSTTreeNode *)malloc(sizeof(BSTTreeNode));
+    if (newNode) {
+      newNode->data = data;
+      newNode->left = NULL;
+      newNode->right = NULL;
+      *root = newNode;
+    }
+  } else {
+    if (data < (*root)->data) {
+      insertNode(&((*root)->left), data);
+    } else if (data > (*root)->data) {
+      insertNode(&((*root)->right), data);
+    }
+  }
+}
 
-  root->left = BinarySearchTree_init_rec(datum, start, mid - 1);
-  root->right = BinarySearchTree_init_rec(datum, mid + 1, end);
+void insert(BST *bst, int data) {
+  if (bst) {
+    insertNode(&(bst->root), data);
+  }
+}
 
+BSTTreeNode *findMin(BSTTreeNode *root) {
+  while (root->left != NULL) {
+    root = root->left;
+  }
   return root;
 }
 
-struct BinarySearchTreeNode* BinarySearchTree_search(struct BinarySearchTreeNode *x, int k) {
-  if (x == NULL) {
-    return x;
-  } else if (x && x->data == k) {
-    return x;
-  } else if (k < x->data) {
-    return BinarySearchTree_search(x->left, k);
+BSTTreeNode *deleteNode(BSTTreeNode *root, int data) {
+  if (root == NULL) {
+    return root;
+  } else if (data < root->data) {
+    root->left = deleteNode(root->left, data);
+  } else if (data > root->data) {
+    root->right = deleteNode(root->right, data);
   } else {
-    return BinarySearchTree_search(x->right, k);
+    // Node with only one child or no child
+    if (root->left == NULL) {
+      BSTTreeNode *temp = root->right;
+      free(root);
+      return temp;
+    } else if (root->right == NULL) {
+      BSTTreeNode *temp = root->left;
+      free(root);
+      return temp;
+    }
+
+    BSTTreeNode *temp = findMin(root->right);
+    root->data = temp->data;
+    root->right = deleteNode(root->right, temp->data);
+  }
+  return root;
+}
+
+void removeNode(BST *bst, int data) {
+  if (bst && bst->root) {
+    bst->root = deleteNode(bst->root, data);
+  }
+}
+
+BSTTreeNode *searchNode(BSTTreeNode *root, int data) {
+  if (root == NULL || root->data == data) {
+    return root;
+  }
+  if (root->data < data) {
+    return searchNode(root->right, data);
+  }
+  return searchNode(root->left, data);
+}
+
+BSTTreeNode *search(BST *bst, int data) {
+  if (bst) {
+    return searchNode(bst->root, data);
+  }
+  return NULL;
+}
+
+void inorderTraversal(BSTTreeNode *root) {
+  if (root) {
+    inorderTraversal(root->left);
+    printf("%d ", root->data);
+    inorderTraversal(root->right);
+  }
+}
+
+void preorderTraversal(BSTTreeNode *root) {
+  if (root) {
+    printf("%d ", root->data);
+    preorderTraversal(root->left);
+    preorderTraversal(root->right);
+  }
+}
+
+// Function for postorder traversal
+void postorderTraversal(BSTTreeNode *root) {
+  if (root) {
+    postorderTraversal(root->left);
+    postorderTraversal(root->right);
+    printf("%d ", root->data);
   }
 }

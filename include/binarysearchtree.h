@@ -1,25 +1,24 @@
-#ifndef BST
-#define BST
+#ifndef BST_H
+#define BST_H
 
-#include "binarysearchtreenode.h"
+typedef struct BSTTreeNode {
+  int data;
+  struct BSTTreeNode *left;
+  struct BSTTreeNode *right;
+} BSTTreeNode;
 
-struct BinarySearchTree {
-  struct BinarySearchTreeNode *root;
-  int size;
-};
-typedef struct BinarySearchTree BinarySearchTree;
+typedef struct BST {
+  BSTTreeNode *root;
+} BST;
 
-void BinarySearchTree_init(struct BinarySearchTree *t, int *datum, int size);
-struct BinarySearchTreeNode* BinarySearchTree_init_rec(int arr[], int start, int end);
-struct BinarySearchTreeNode* BinarySearchTree_search(struct BinarySearchTreeNode *x, int k);
-void BinarySearchTree_insert(struct BinarySearchTree *t, int z);
-void BinarySearchTree_delete(struct BinarySearchTree *t, int d);
-BinarySearchTreeNode BinarySearchTree_successor(struct BinarySearchTreeNode *x);
-BinarySearchTreeNode BinarySearchTree_predecessor(struct BinarySearchTreeNode *x);
-BinarySearchTreeNode BinarySearchTree_max(struct BinarySearchTreeNode *x);
-BinarySearchTreeNode BinarySearchTree_min(struct BinarySearchTreeNode *x);
-void BinarySearchTree_in_order(struct BinarySearchTreeNode *x);
-void BinarySearchTree_pre_order(struct BinarySearchTreeNode *x);
-void BinarySearchTree_post_order(struct BinarySearchTreeNode *x);
+// Function prototypes
+BST* createBST();
+void destroyBST(BST *bst);
+void insert(BST *bst, int data);
+void removeNode(BST *bst, int data);
+BSTTreeNode* search(BST *bst, int data);
+void inorderTraversal(BSTTreeNode *root);
+void preorderTraversal(BSTTreeNode *root);
+void postorderTraversal(BSTTreeNode *root);
 
-#endif
+#endif /* BST_H */

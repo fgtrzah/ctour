@@ -62,22 +62,41 @@ void test_linkedlist() {
   assert(LinkedList_delete(m, 0) == 1);
 }
 
-void print_node(struct BinarySearchTreeNode *x) {
-  printf("%d \n", x->data);
-  printf("%p \n ", (void *)x->left);
-  printf("%p \n ", (void *)x->right);
-}
-
 void test_bst() {
-  int fixture[] = {1, 2, 3, 4, 10, 16, 17, 18, 25};
-  int fsize = sizeof(fixture) / sizeof(fixture[0]);
-  struct BinarySearchTree *t =
-      malloc((sizeof(struct BinarySearchTree) +
-              fsize * sizeof(struct BinarySearchTreeNode)));
-  BinarySearchTree_init(t, fixture, fsize);
-  printf("%d \n", BinarySearchTree_search(t->root, 10)->data);
-  print_node((void *) t->root);
-  assert(1);
+  BST *bst = createBST();
+
+  // Insert some elements
+  insert(bst, 50);
+  insert(bst, 30);
+  insert(bst, 20);
+  insert(bst, 40);
+  insert(bst, 70);
+  insert(bst, 60);
+  insert(bst, 80);
+
+  // Search for an element
+  BSTTreeNode *result = search(bst, 20);
+  assert(result->data == 20);
+
+  // Remove an element
+  removeNode(bst, 20);
+  assert(search(bst, 20) == NULL);
+
+  // Perform traversals
+  printf("Inorder traversal: ");
+  inorderTraversal(bst->root);
+  printf("\n");
+
+  printf("Preorder traversal: ");
+  preorderTraversal(bst->root);
+  printf("\n");
+
+  printf("Postorder traversal: ");
+  postorderTraversal(bst->root);
+  printf("\n");
+
+  // Destroy the BST
+  destroyBST(bst);
 }
 
 int main() {
