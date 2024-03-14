@@ -3,6 +3,8 @@
 #include "include/linkedlistnode.h"
 #include "include/queue.h"
 #include "include/stack.h"
+#include "include/trie.h"
+#include "include/trienode.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -106,7 +108,7 @@ void test_bst() {
 }
 
 void test_queue() {
-  int datum[] = {1,2,3,4,5};
+  int datum[] = {1, 2, 3, 4, 5};
   int dsize = sizeof(datum) / sizeof(datum[0]);
   struct Queue *q = (Queue *)malloc(sizeof(struct Queue));
 
@@ -122,11 +124,16 @@ void test_queue() {
   assert(sizeof(*q) == 16);
 }
 
+void test_trie() {
+  assert(1); 
+}
+
 int main() {
   test_stack();
   test_linkedlist();
   test_bst();
   test_queue();
+  test_trie();
 
   printf("All tests passed successfully!\n");
 
