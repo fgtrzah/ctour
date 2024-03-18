@@ -137,6 +137,9 @@ void test_trie() {
   assert(!Trie_search(t->root, "bi"));
   assert(!Trie_search(t->root, "zi"));
   assert(Trie_search(t->root, "billy"));
+  assert(Trie_delete(&t->root, "billy"));
+  assert(!Trie_search(t->root, "billy"));
+  Trie_completions(t->root, "b");
 
   assert(!t->root->terminal);
 }
