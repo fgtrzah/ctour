@@ -132,7 +132,9 @@ void test_trie() {
 
   print_trie(t->root);
 
-  assert(1);
+  assert(t->root->children[(int) 'c'] != NULL);
+  assert(t->root->children[(int) 'b'] != NULL);
+  assert(!t->root->terminal);
 }
 
 int main() {
