@@ -132,8 +132,12 @@ void test_trie() {
 
   print_trie(t->root);
 
-  assert(t->root->children[(int) 'c'] != NULL);
-  assert(t->root->children[(int) 'b'] != NULL);
+  assert(t->root->children[(int)'c'] != NULL);
+  assert(t->root->children[(int)'b'] != NULL);
+  assert(!Trie_search(t->root, "bi"));
+  assert(!Trie_search(t->root, "zi"));
+  assert(Trie_search(t->root, "billy"));
+
   assert(!t->root->terminal);
 }
 

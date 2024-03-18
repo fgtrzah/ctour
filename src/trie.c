@@ -58,6 +58,22 @@ bool Trie_insert(TrieNode **root, char *pre) {
   }
 }
 
+bool Trie_search(TrieNode *root, char *pre) {
+  TrieNode *cn = root;
+  unsigned char *pre_text = (unsigned char *) pre;
+  int lp = strlen(pre);
+
+  for (int i = 0; i < lp; i++) {
+    if (!cn->children[pre_text[i]]) {
+      return false;
+    }
+
+    cn = cn->children[pre_text[i]];
+  }
+
+  return cn->terminal;
+}
+
 void print_trie(TrieNode *root) {
   if (!root) {
     printf("empty");
