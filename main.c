@@ -8,6 +8,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void test_stack() {
   struct Stack *stack = malloc(sizeof(struct Stack));
@@ -125,7 +126,13 @@ void test_queue() {
 }
 
 void test_trie() {
-  assert(1); 
+  char *fixtures[] = {"cat", "cathedral", "bat", "billy"};
+
+  struct Trie *t = Trie_init(fixtures, 4);
+
+  print_trie(t->root);
+
+  assert(1);
 }
 
 int main() {
