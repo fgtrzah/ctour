@@ -1,4 +1,5 @@
 #include "include/binarysearchtree.h"
+#include "include/c1.lsip.h"
 #include "include/linkedlist.h"
 #include "include/linkedlistnode.h"
 #include "include/queue.h"
@@ -139,9 +140,12 @@ void test_trie() {
   assert(Trie_search(t->root, "billy"));
   assert(Trie_delete(&t->root, "billy"));
   assert(!Trie_search(t->root, "billy"));
-  Trie_completions(t->root, "b");
-
+  assert(Trie_completions(t->root, "b"));
   assert(!t->root->terminal);
+}
+
+void test_c1_lsip() { 
+  printf("%d\n", lsip()); 
 }
 
 int main() {
@@ -150,6 +154,7 @@ int main() {
   test_bst();
   test_queue();
   test_trie();
+  test_c1_lsip();
 
   printf("All tests passed successfully!\n");
 

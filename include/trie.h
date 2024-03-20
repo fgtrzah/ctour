@@ -18,7 +18,7 @@ Trie *Trie_init(char *w[], size_t i);
 
 bool Trie_insert(TrieNode **root, char *pre);
 bool Trie_search(TrieNode *root, char *pre);
-void Trie_completions(TrieNode *root, char *pre);
+void* Trie_completions(TrieNode *root, char *pre);
 bool Trie_delete(TrieNode **root, char *pre);
 TrieNode *Trie_delete_r(TrieNode *node, unsigned char *text, bool *result);
 bool node_has_children(TrieNode *node);

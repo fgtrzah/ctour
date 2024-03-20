@@ -74,7 +74,7 @@ bool Trie_search(TrieNode *root, char *pre) {
   return cn->terminal;
 }
 
-void Trie_completions(TrieNode *root, char *pre) {
+void* Trie_completions(TrieNode *root, char *pre) {
   TrieNode *cn = root;
   unsigned char *pre_text = (unsigned char *)pre;
   int lp = strlen(pre);
@@ -92,6 +92,8 @@ void Trie_completions(TrieNode *root, char *pre) {
       print_trie(cn->children[i]);
     }
   }
+
+  return cn->children;
 }
 
 bool Trie_delete(TrieNode **root, char *pre) {
