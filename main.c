@@ -145,7 +145,7 @@ void test_trie() {
 }
 
 void test_c1_lsip() { 
-  printf("%d\n", lsip()); 
+  assert(!lsip()); 
 }
 
 int main() {
@@ -156,7 +156,7 @@ int main() {
   test_trie();
   test_c1_lsip();
 
-  printf("All tests passed successfully!\n");
+  printf("\nAll tests passed successfully!\n");
 
   return 0;
 }

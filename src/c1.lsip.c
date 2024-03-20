@@ -14,11 +14,11 @@ int lsip() {
 
   struct ifaddrs *c = eps;
 
+  printf("\nadapter\tfamily\taddress\n");
+
   while (c) {
     struct sockaddr *ifa_addr = c->ifa_addr;
     int fam = ifa_addr->sa_family;
-
-    printf("adapter\tfamily\taddress\n");
 
     bool isv4 = fam == AF_INET;
     bool isv6 = fam == AF_INET6;
@@ -28,7 +28,7 @@ int lsip() {
       const int fam_size =
           isv4 ? sizeof(struct sockaddr_in) : sizeof(struct sockaddr_in6);
       getnameinfo(ifa_addr, fam_size, a, sizeof(a), 0, 0, NI_NUMERICHOST);
-      printf("%s\t%d\t%s\t", c->ifa_name, isv4 ? 'IPv4' : 'IPv6', a);
+      printf("\n%s\t%d\t%s\t\n", c->ifa_name, isv4 ? 'IPv4' : 'IPv6', a);
     }
 
     c = c->ifa_next;
