@@ -2,6 +2,7 @@
 #include "include/c1.lsip.h"
 #include "include/linkedlist.h"
 #include "include/linkedlistnode.h"
+#include "include/pqueue.h"
 #include "include/queue.h"
 #include "include/stack.h"
 #include "include/trie.h"
@@ -144,8 +145,29 @@ void test_trie() {
   assert(!t->root->terminal);
 }
 
-void test_c1_lsip() { 
-  assert(!lsip()); 
+void test_c1_lsip() { assert(!lsip()); }
+
+void test_pqueue() {
+  int fixtures[] = { 6, 5, 4, 3, 2, 1, 0 };
+  struct Pqueue *q = malloc(sizeof(struct Pqueue *));
+  q = Pqueue_init(fixtures);
+  /*
+   *
+   *
+    Input:
+
+          [6,5,4,3,2,1,0]
+
+    Expected:
+                                      0
+
+                  1                                 2
+
+          3               4                5               6
+
+
+   */
+  assert(1);
 }
 
 int main() {
