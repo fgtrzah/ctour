@@ -10,20 +10,12 @@ struct Pqueue *Pqueue_init(int *datum) {
 
 
 void *Pqueue_heapify(struct Pqueue* heap, int datum[]) {
-  if (!datum || !sizeof(&datum))
-    return NULL;
-
-  if (!heap) {
-    heap = malloc(sizeof(struct Pqueue));
-    int h[] = {}; 
-    heap->heap = h; 
-  }
-
-  size_t n = sizeof(&datum) / sizeof(datum[0]);
-
-  for (size_t i = 0; i < n; i++) {
-    printf("%zu\n", i); 
-  }
-
+  /*
+   * - find size of heap
+   * - for i in list
+   *   - does i violate pri?
+   *     - if so
+   *       - sift up / down
+   */
   return NULL;
 }
