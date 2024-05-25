@@ -1,4 +1,5 @@
 (contrary to what the name suggests, this repo is me taking 
-a tour of C, not giving the tour).
+a tour of C, not giving the tour). basic ideas reimplemented in C.
 
-basic ideas reimplemented in C.
+#### Quickstart
+```make```
