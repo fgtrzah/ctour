@@ -21,7 +21,8 @@ Trie *Trie_init(char *w[], size_t i) {
   struct Trie *t = malloc(sizeof(struct Trie));
   struct TrieNode *c = t->root;
 
-  while (w[0] != "\0" && i) {
+  printf("%s\n", w[0]);
+  while (w[0] && i) {
     char *word = *w++;
     printf("%s\n", word);
 

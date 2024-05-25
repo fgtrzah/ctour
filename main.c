@@ -2,7 +2,7 @@
 #include "include/c1.lsip.h"
 #include "include/linkedlist.h"
 #include "include/linkedlistnode.h"
-#include "include/pqueue.h"
+#include "include/priorityqueue.h"
 #include "include/queue.h"
 #include "include/stack.h"
 #include "include/trie.h"
@@ -115,6 +115,7 @@ void test_queue() {
   int dsize = sizeof(datum) / sizeof(datum[0]);
   struct Queue *q = (Queue *)malloc(sizeof(struct Queue));
 
+  printf(">>>> %d\n", dsize);
   for (int i = 0; i < dsize; i++) {
     printf("%d\n", datum[i]);
     enqueue(q, datum[i]);
@@ -148,25 +149,17 @@ void test_trie() {
 void test_c1_lsip() { assert(!lsip()); }
 
 void test_pqueue() {
-  int fixtures[] = { 6, 5, 4, 3, 2, 1, 0 };
-  struct Pqueue *q = malloc(sizeof(struct Pqueue *));
-  q = Pqueue_init(fixtures);
-  /*
-   *
-   *
-    Input:
+  int elements[] = {10, 20, 5, 30, 15};
+  int numElements = sizeof(elements) / sizeof(elements[0]);
 
-          [6,5,4,3,2,1,0]
-
-    Expected:
-                                      0
-
-                  1                                 2
-
-          3               4                5               6
-
-
-   */
+  PriorityQueue *pq = PriorityQueue_createPriorityQueue(10, elements, numElements);
+  PQElement elem = PriorityQueue_peek(pq);
+  printf("Peek: Element = %d\n", elem.element);
+  while (!PriorityQueue_isEmpty(pq)) {
+      elem = PriorityQueue_dequeue(pq);
+      printf("Dequeue: Element = %d\n", elem.element);
+  }
+  PriorityQueue_destroyPriorityQueue(pq);
   assert(1);
 }
 
@@ -177,6 +170,7 @@ int main() {
   test_queue();
   test_trie();
   test_c1_lsip();
+  test_pqueue();
 
   printf("\nAll tests passed successfully!\n");
 
