@@ -1,7 +1,7 @@
 #include "../include/priorityqueue.h"
 
-PriorityQueue *PriorityQueue_createPriorityQueue(int capacity, int elements[],
-                                                 int numElements) {
+PriorityQueue *PriorityQueue_init(int capacity, int elements[],
+                                  int numElements) {
   PriorityQueue *pq = (PriorityQueue *)malloc(sizeof(PriorityQueue));
 
   pq->capacity = capacity;
@@ -14,11 +14,11 @@ PriorityQueue *PriorityQueue_createPriorityQueue(int capacity, int elements[],
   return pq;
 }
 
-int PriorityQueue_isFull(PriorityQueue *pq) { return pq->size == pq->capacity; }
-int PriorityQueue_isEmpty(PriorityQueue *pq) { return pq->size == 0; }
+int PriorityQueue_full(PriorityQueue *pq) { return pq->size == pq->capacity; }
+int PriorityQueue_empty(PriorityQueue *pq) { return pq->size == 0; }
 
 void PriorityQueue_enqueue(PriorityQueue *pq, int element) {
-  if (PriorityQueue_isFull(pq)) {
+  if (PriorityQueue_full(pq)) {
     printf("Priority Queue is full\n");
     return;
   }
@@ -32,7 +32,7 @@ void PriorityQueue_enqueue(PriorityQueue *pq, int element) {
 }
 
 PQElement PriorityQueue_dequeue(PriorityQueue *pq) {
-  if (PriorityQueue_isEmpty(pq)) {
+  if (PriorityQueue_empty(pq)) {
     printf("Priority Queue is empty\n");
     PQElement empty = {-1};
     return empty;
@@ -46,7 +46,7 @@ PQElement PriorityQueue_dequeue(PriorityQueue *pq) {
 }
 
 PQElement PriorityQueue_peek(PriorityQueue *pq) {
-  if (PriorityQueue_isEmpty(pq)) {
+  if (PriorityQueue_empty(pq)) {
     printf("Priority Queue is empty\n");
     PQElement empty = {-1};
     return empty;
@@ -54,7 +54,7 @@ PQElement PriorityQueue_peek(PriorityQueue *pq) {
   return pq->elements[0];
 }
 
-void PriorityQueue_destroyPriorityQueue(PriorityQueue *pq) {
+void PriorityQueue_flush(PriorityQueue *pq) {
   free(pq->elements);
   free(pq);
 }

@@ -150,16 +150,21 @@ void test_c1_lsip() { assert(!lsip()); }
 
 void test_pqueue() {
   int elements[] = {10, 20, 5, 30, 15};
-  int numElements = sizeof(elements) / sizeof(elements[0]);
-
-  PriorityQueue *pq = PriorityQueue_createPriorityQueue(10, elements, numElements);
+  int n = sizeof(elements) / sizeof(elements[0]);
+  PriorityQueue *pq = PriorityQueue_init(10, elements, n);
   PQElement elem = PriorityQueue_peek(pq);
   printf("Peek: Element = %d\n", elem.element);
-  while (!PriorityQueue_isEmpty(pq)) {
-      elem = PriorityQueue_dequeue(pq);
-      printf("Dequeue: Element = %d\n", elem.element);
+  int expected[] = { 5, 10, 15, 20, 30 };
+  int i = 0;
+
+  while (!PriorityQueue_empty(pq) && i < n) {
+    elem = PriorityQueue_dequeue(pq);
+    assert(elem.element == expected[i]);
+    i++;
   }
-  PriorityQueue_destroyPriorityQueue(pq);
+ 
+  PriorityQueue_flush(pq);
+ 
   assert(1);
 }
 
