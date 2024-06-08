@@ -15,7 +15,7 @@ typedef struct {
 } PriorityQueue;
 
 PriorityQueue *PriorityQueue_init(int capacity, int elements[],
-                                                 int numElements);
+                                  int numElements);
 int PriorityQueue_full(PriorityQueue *pq);
 int PriorityQueue_empty(PriorityQueue *pq);
 void PriorityQueue_enqueue(PriorityQueue *pq, int element);
