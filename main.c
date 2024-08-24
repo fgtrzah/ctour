@@ -13,6 +13,7 @@
 #include "include/c9.dynamicmem.h"
 #include "include/colorize.h"
 #include "include/computemd5.h"
+#include "include/datumarray.h"
 #include "include/dynamicpriorityqueue.h"
 #include "include/heap.h"
 #include "include/kclosestorigin.h"
@@ -25,12 +26,14 @@
 #include "include/medianofstream.h"
 #include "include/queue.h"
 #include "include/reprompt.h"
+#include "include/search.h"
 #include "include/stack.h"
 #include "include/trie.h"
 #include <assert.h>
 #include <execinfo.h>
 #include <include/c7.webserver.h>
 #include <include/datumarray.h>
+#include <include/search.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -490,6 +493,7 @@ int main(int argc, char *argv[]) {
   test_c6_webget_init(argc, argv);
   test_c7_webserver_init(argc, argv);
   test_c9_dynamicmem();
+  test_search();
   print_call_stack();
 
   printf("\nall tests passed successfully!\n");

@@ -56,10 +56,59 @@ void Trie_delete(TrieNode *root, char *word) {
   }
 }
 
+void collect_words(TrieNode *node, char *prefix, char **suggestions,
+                   int *count) {
+  if (node == NULL || *count >= MAX_SUGGESTIONS) {
+    return;
+  }
+
+  if (node->is_end) {
+    suggestions[*count] = strdup(prefix);
+    (*count)++;
+  }
+
+  for (int i = 0; i < 26; i++) {
+    if (node->children[i] != NULL) {
+      size_t len = strlen(prefix);
+      char *new_prefix =
+          (char *)malloc(len + 2); // +1 for the new char and +1 for '\0'
+      strcpy(new_prefix, prefix);
+      new_prefix[len] = i + 'a';
+      new_prefix[len + 1] = '\0';
+
+      collect_words(node->children[i], new_prefix, suggestions, count);
+      free(new_prefix);
+    }
+  }
+}
+
+char **Trie_completions(TrieNode *root, char *prefix, int *count) {
+  TrieNode *current_node = root;
+  *count = 0;
+
+  for (int i = 0; prefix[i] != '\0'; i++) {
+    int index = prefix[i] - 'a';
+    if (current_node->children[index] == NULL) {
+      return NULL;
+    }
+    current_node = current_node->children[index];
+  }
+
+  char **suggestions = (char **)malloc(MAX_SUGGESTIONS * sizeof(char *));
+  collect_words(current_node, prefix, suggestions, count);
+
+  return suggestions;
+}
+
 void test_trie() {
   TrieNode *root = Trie_create();
   Trie_insert(root, "hello");
+  Trie_insert(root, "hell");
+  Trie_insert(root, "helicopter");
+  Trie_insert(root, "help");
   Trie_insert(root, "world");
+  Trie_insert(root, "word");
+
   printf("Is 'hello' present? \n");
   int x = Trie_search(root, "hello");
   if (x == 1)
@@ -85,4 +134,21 @@ void test_trie() {
   else
     printf("No\n");
   assert(!z);
+
+  int count = 0;
+  char **suggestions = Trie_completions(root, "hel", &count);
+  printf("Suggestions for 'hel':\n");
+  for (int i = 0; i < count; i++) {
+    printf("%s\n", suggestions[i]);
+    free(suggestions[i]);
+  }
+  free(suggestions);
+
+  // Clean up the Trie
+  Trie_delete(root, "hell");
+  Trie_delete(root, "helicopter");
+  Trie_delete(root, "help");
+  Trie_delete(root, "world");
+  Trie_delete(root, "word");
+  free(root);
 }
