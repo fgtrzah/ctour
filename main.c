@@ -31,9 +31,6 @@
 #include "include/trie.h"
 #include <assert.h>
 #include <execinfo.h>
-#include <include/c7.webserver.h>
-#include <include/datumarray.h>
-#include <include/search.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
