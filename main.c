@@ -153,62 +153,6 @@ void test_queue() {
 
 void test_c1_lsip() { assert(!lsip()); }
 
-int heap_comparator(HeapElement *a, HeapElement *b, int priority) {
-  if (priority != 1 && priority != 0 || a == NULL || b == NULL)
-    fprintf(stderr,
-            "missing comparator config member, from following list: "
-            "a:%zu, b:%zu, priority:%zu",
-            sizeof(*a), sizeof(*b), sizeof(priority));
-
-  int datum_a = ((HeapElement *)a)->element;
-  int datum_b = ((HeapElement *)b)->element;
-
-  printf("datum_a, datum_b: %d, %d\n", datum_a, datum_b);
-
-  if (!priority)
-    return (datum_a - datum_b) < 0;
-  else
-    return (datum_a - datum_b) > 0;
-}
-
-void test_heap_top3() {
-  int elements[] = {10, 20, 5, 30, 15};
-  int n = sizeof(elements) / sizeof(elements[0]);
-  Heap *h = Heap_init(2 * n, elements, n, heap_comparator, 0);
-  int i = 0;
-  int expected[] = {5, 10, 15};
-
-  while (i < 3) {
-    HeapElement e = Heap_dequeue(h);
-    printf("exp, acc: %d, %d\n", e.element, expected[i]);
-    assert(e.element == expected[i]);
-    i++;
-  }
-
-  int fixtures[] = {3, 1, 2, 10, 33, 100, 20};
-  int exp_2[] = {1, 2, 3};
-  i = 0;
-  h = Heap_init(2 * 7, fixtures, 7, heap_comparator, 0);
-
-  while (i < 3) {
-    HeapElement e = Heap_dequeue(h);
-    printf("exp, acc: %d, %d\n", e.element, exp_2[i]);
-    assert(e.element == exp_2[i]);
-    i++;
-  }
-
-  i = 0;
-  h = Heap_init(2 * 7, fixtures, 7, heap_comparator, 0);
-  int exp3[] = {100, 33, 20};
-
-  while (i < 3) {
-    HeapElement e = Heap_dequeue(h);
-    printf("exp, acc: %d, %d\n", e.element, exp_2[i]);
-    assert(e.element == exp_2[i]);
-    i++;
-  }
-}
-
 void test_nclosestorigin() {
   CoordList *heap = KClosestOrigin_init(10);
   int k = 3;
@@ -360,9 +304,7 @@ void test_ksortedlists() {
 
 void test_c2_timeserver() { assert(!timeserver()); }
 
-void test_c3_tcpclient(int argc, char *argv[]) {
-  assert(!tcpclient_init(argc, argv));
-}
+void test_c3_tcpclient() { assert(!tcpclient_init()); }
 
 void test_md5() {
   const char *test_str = "Hello, world!";
@@ -477,8 +419,7 @@ int main(int argc, char *argv[]) {
   // test_insert_and_extract();
   // test_ksortedlists();
   // test_c2_timeserver();
-  reprompt(&argc, argv, "beginning test_c3_tcpclient");
-  test_c3_tcpclient(argc, argv);
+  test_c3_tcpclient();
   // test_toupperref();
   // test_md5();
   // test_klargestinmatrix();

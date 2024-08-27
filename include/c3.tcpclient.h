@@ -14,6 +14,6 @@ typedef struct {
 
 TCPCRemoteAddress *TCPCRemoteAddress_configure_remote_address();
 
-int tcpclient_init(int argc, char *argv[]);
+int tcpclient_init();
 
 #endif // !DEBUG

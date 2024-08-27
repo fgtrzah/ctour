@@ -18,7 +18,7 @@ TCPCRemoteAddress *TCPCRemoteAddress_configure_remote_address() {
   return address;
 }
 
-int tcpclient_init(int argc, char *argv[]) {
+int tcpclient_init() {
 #if defined(_WIN32)
   WSADATA d;
   if (WSAStartup(MAKEWORD(2, 2), &d)) {
@@ -26,17 +26,11 @@ int tcpclient_init(int argc, char *argv[]) {
     return 1;
   }
 #endif
-  if (argc < 2) {
-    fprintf(stderr, "usage: tcp_client hostname port\n");
-    return 1;
-  } else {
-    printf("address, port: %s, %s", argv[1], argv[2]);
-  }
 
   TCPCRemoteAddress *a = TCPCRemoteAddress_configure_remote_address();
 
   // remote address config validation + logging
-  if (getaddrinfo(argv[1], argv[2], &a->hints, &a->peer_address)) {
+  if (getaddrinfo("example.com", "http", &a->hints, &a->peer_address)) {
     char b[100];
     sprintf(b, "getaddrinfo() failed. (%d)\n", GETSOCKETERRNO());
     colorize(b, COLOR_RED);

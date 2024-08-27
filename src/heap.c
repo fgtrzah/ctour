@@ -196,6 +196,44 @@ void test_heap_enqueue_dequeue(int (*comparator)(HeapElement *, HeapElement *,
   Heap_flush(h);
 }
 
+void test_heap_top3(int (*comparator)(HeapElement *, HeapElement *, int)) {
+  int elements[] = {10, 20, 5, 30, 15};
+  int n = sizeof(elements) / sizeof(elements[0]);
+  Heap *h = Heap_init(2 * n, elements, n, heap_comparator, 0);
+  int i = 0;
+  int expected[] = {5, 10, 15};
+
+  while (i < 3) {
+    HeapElement e = Heap_dequeue(h);
+    printf("exp, acc: %d, %d\n", e.element, expected[i]);
+    assert(e.element == expected[i]);
+    i++;
+  }
+
+  int fixtures[] = {3, 1, 2, 10, 33, 100, 20};
+  int exp_2[] = {1, 2, 3};
+  i = 0;
+  h = Heap_init(2 * 7, fixtures, 7, heap_comparator, 0);
+
+  while (i < 3) {
+    HeapElement e = Heap_dequeue(h);
+    printf("exp, acc: %d, %d\n", e.element, exp_2[i]);
+    assert(e.element == exp_2[i]);
+    i++;
+  }
+
+  i = 0;
+  h = Heap_init(2 * 7, fixtures, 7, heap_comparator, 0);
+  int exp3[] = {100, 33, 20};
+
+  while (i < 3) {
+    HeapElement e = Heap_dequeue(h);
+    printf("exp, acc: %d, %d\n", e.element, exp_2[i]);
+    assert(e.element == exp_2[i]);
+    i++;
+  }
+}
+
 void test_heap(int (*comparator)(HeapElement *, HeapElement *, int),
                int priority) {
   test_heap_initialization_ascending(comparator, 0);
@@ -208,4 +246,5 @@ void test_heap(int (*comparator)(HeapElement *, HeapElement *, int),
   test_heap_enqueue_full(comparator, 0);
   test_heap_dequeue_empty(comparator, 0);
   test_heap_enqueue_dequeue(comparator, 0);
+  test_heap_top3(comparator);
 }

@@ -1,5 +1,4 @@
 #include "../include/reprompt.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,8 +10,9 @@ void reprompt(int *argc, char *argv[], char *msg) {
   char input[256];
   int new_argc = 1;
   char *token;
-
+  printf("%s", input);
   // Ask for user input
+  printf("%s...\n", msg);
   printf("Enter new command-line arguments: ");
   if (fgets(input, sizeof(input), stdin) == NULL) {
     perror("fgets failed");
