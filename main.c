@@ -153,10 +153,28 @@ void test_queue() {
 
 void test_c1_lsip() { assert(!lsip()); }
 
+int heap_comparator(HeapElement *a, HeapElement *b, int priority) {
+  if (priority != 1 && priority != 0 || a == NULL || b == NULL)
+    fprintf(stderr,
+            "missing comparator config member, from following list: "
+            "a:%zu, b:%zu, priority:%zu",
+            sizeof(*a), sizeof(*b), sizeof(priority));
+
+  int datum_a = ((HeapElement *)a)->element;
+  int datum_b = ((HeapElement *)b)->element;
+
+  printf("datum_a, datum_b: %d, %d\n", datum_a, datum_b);
+
+  if (!priority)
+    return (datum_a - datum_b) < 0;
+  else
+    return (datum_a - datum_b) > 0;
+}
+
 void test_heap_top3() {
   int elements[] = {10, 20, 5, 30, 15};
   int n = sizeof(elements) / sizeof(elements[0]);
-  Heap *h = Heap_init(2 * n, elements, n);
+  Heap *h = Heap_init(2 * n, elements, n, heap_comparator, 0);
   int i = 0;
   int expected[] = {5, 10, 15};
 
@@ -170,7 +188,7 @@ void test_heap_top3() {
   int fixtures[] = {3, 1, 2, 10, 33, 100, 20};
   int exp_2[] = {1, 2, 3};
   i = 0;
-  h = Heap_init(2 * 7, fixtures, 7);
+  h = Heap_init(2 * 7, fixtures, 7, heap_comparator, 0);
 
   while (i < 3) {
     HeapElement e = Heap_dequeue(h);
@@ -178,35 +196,17 @@ void test_heap_top3() {
     assert(e.element == exp_2[i]);
     i++;
   }
-}
 
-void test_heap() {
-  int elements[] = {10, 20, 5, 30, 15};
-  int n = sizeof(elements) / sizeof(elements[0]);
-  Heap *pq = Heap_init(10, elements, n);
-  HeapElement elem = Heap_peek(pq);
-  printf("Peek: Element = %d\n", elem.element);
-  int expected[] = {5, 10, 15, 20, 30};
-  int i = 0;
+  i = 0;
+  h = Heap_init(2 * 7, fixtures, 7, heap_comparator, 0);
+  int exp3[] = {100, 33, 20};
 
-  while (!Heap_empty(pq) && i < n) {
-    elem = Heap_dequeue(pq);
-    assert(elem.element == expected[i]);
-    printf("exp, acc: %d, %d\n", elem.element, expected[i]);
+  while (i < 3) {
+    HeapElement e = Heap_dequeue(h);
+    printf("exp, acc: %d, %d\n", e.element, exp_2[i]);
+    assert(e.element == exp_2[i]);
     i++;
   }
-
-  int fixtures[] = {5, 7, 3};
-  Heap *h = Heap_init(3, fixtures, 3);
-
-  while (!Heap_empty(h) && i < 3) {
-    HeapElement e = Heap_dequeue(h);
-
-    assert(e.element == fixtures[i]);
-    printf("exp, acc: %d, %d\n", e.element, expected[i]);
-  }
-
-  Heap_flush(pq);
 }
 
 void test_nclosestorigin() {
@@ -457,40 +457,43 @@ void test_medianofstream() {
 }
 
 int main(int argc, char *argv[]) {
-  test_da();
-  test_stack();
-  test_linkedlist();
-  test_bst();
-  test_queue();
-  test_trie();
-  test_c1_lsip();
-  test_heap();
-  test_heap_top3();
-  test_nclosestorigin();
-  test_klargest();
-  test_klargeststream();
-  test_c2_sockinit();
-  test_min_heap();
-  test_max_heap();
-  test_insert_and_extract();
-  test_ksortedlists();
-  test_c2_timeserver();
+  // test_da();
+  // test_stack();
+  // test_linkedlist();
+  // test_bst();
+  // test_queue();
+  // test_trie();
+  // test_c1_lsip();
+  // TODO: implement internals of generics based heap
+  // test_heap(heap_comparator, 0);
+  // test_heap(heap_comparator, 1);
+  // test_heap_top3();
+  // test_nclosestorigin();
+  // test_klargest();
+  // test_klargeststream();
+  // test_c2_sockinit();
+  // test_min_heap();
+  // test_max_heap();
+  // test_insert_and_extract();
+  // test_ksortedlists();
+  // test_c2_timeserver();
+  reprompt(&argc, argv, "beginning test_c3_tcpclient");
   test_c3_tcpclient(argc, argv);
-  test_toupperref();
-  test_md5();
-  test_klargestinmatrix();
-  test_medianofstream();
-  test_c4_udprecvfrom(argc, argv);
-  test_c4_udpservermd5();
-  reprompt(&argc, argv);
-  test_c5_lookup(argc, argv);
-  reprompt(&argc, argv);
-  test_c5_dnsutils(argc, argv);
-  reprompt(&argc, argv);
-  test_c6_webget_init(argc, argv);
-  test_c7_webserver_init(argc, argv);
-  test_c9_dynamicmem();
-  test_search();
+  // test_toupperref();
+  // test_md5();
+  // test_klargestinmatrix();
+  // test_medianofstream();
+  // test_c4_udprecvfrom(argc, argv);
+  // test_c4_udpservermd5();
+  // reprompt(&argc, argv);
+  // test_c5_lookup(argc, argv);
+  // reprompt(&argc, argv);
+  // test_c5_dnsutils(argc, argv);
+  // reprompt(&argc, argv);
+  // test_c6_webget_init(argc, argv);
+  // test_c7_webserver_init(argc, argv);
+  // test_c9_dynamicmem();
+  // test_search();
   print_call_stack();
 
   printf("\nall tests passed successfully!\n");

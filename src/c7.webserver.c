@@ -1,4 +1,5 @@
 #include "../include/c7.webserver.h"
+
 #include <assert.h>
 const char *get_content_type(const char *path) {
   const char *last_dot = strrchr(path, '.');
@@ -163,7 +164,6 @@ void send_404(struct client_info *client) {
 }
 
 void serve_resource(struct client_info *client, const char *path) {
-
   printf("serve_resource %s %s\n", get_client_address(client), path);
 
   if (strcmp(path, "/") == 0)
@@ -233,7 +233,6 @@ void serve_resource(struct client_info *client, const char *path) {
 }
 
 int c7_webserver_init(int argc, char *argv[]) {
-
 #if defined(_WIN32)
   WSADATA d;
   if (WSAStartup(MAKEWORD(2, 2), &d)) {
@@ -246,7 +245,6 @@ int c7_webserver_init(int argc, char *argv[]) {
   int server_cap = 0;
 
   while (1) {
-
     fd_set reads;
     reads = wait_on_clients(server);
 
@@ -274,7 +272,6 @@ int c7_webserver_init(int argc, char *argv[]) {
       struct client_info *next = client->next;
 
       if (FD_ISSET(client->socket, &reads)) {
-
         if (MAX_REQUEST_SIZE == client->received) {
           send_400(client);
           client = next;

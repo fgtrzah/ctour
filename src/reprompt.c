@@ -1,4 +1,5 @@
 #include "../include/reprompt.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,7 +7,7 @@
 #define MAX_ARGS 100
 #define MAX_ARG_LEN 100
 
-void reprompt(int *argc, char *argv[]) {
+void reprompt(int *argc, char *argv[], char *msg) {
   char input[256];
   int new_argc = 1;
   char *token;

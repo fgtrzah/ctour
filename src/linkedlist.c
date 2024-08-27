@@ -1,4 +1,5 @@
 #include "../include/linkedlist.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -24,7 +25,7 @@ LinkedListNode LinkedList_search(struct LinkedList *h, int i) {
 void LinkedList_append(struct LinkedList *h, int x) {
   if (!h || !h->head || !x) {
     return;
-  } 
+  }
 
   int nnsize = sizeof(int) + 2 * sizeof(struct LinkedListNode);
   struct LinkedListNode *c = h->head;
@@ -33,7 +34,7 @@ void LinkedList_append(struct LinkedList *h, int x) {
     c = c->next;
   }
 
-  struct LinkedListNode *nn = malloc(nnsize); 
+  struct LinkedListNode *nn = malloc(nnsize);
   nn->data = x;
   nn->next = NULL;
   c->next = nn;
@@ -45,10 +46,10 @@ LinkedListNode LinkedList_insert(struct LinkedList *h, int i, int x) {
 
   if (i == 0) {
     struct LinkedListNode *nn = malloc(nnsize);
-    
+
     nn->data = x;
     nn->next = h->head;
-    
+
     return *nn;
   }
 
@@ -69,7 +70,7 @@ LinkedListNode LinkedList_insert(struct LinkedList *h, int i, int x) {
   }
 
   struct LinkedListNode *nn = malloc(nnsize);
-   
+
   nn->data = x;
   nn->next = prev->next;
   prev->next = nn;
@@ -81,12 +82,12 @@ int LinkedList_delete(struct LinkedList *l, int i) {
   if (!l || !l->head) {
     return -1;
   }
-  
+
   int ret;
   int nnsize = sizeof(int) + 2 * sizeof(struct LinkedListNode);
 
   if (!i) {
-    ret = l->head->data; 
+    ret = l->head->data;
     l->head = l->head->next;
     return ret;
   }
@@ -104,11 +105,11 @@ int LinkedList_delete(struct LinkedList *l, int i) {
   if (curr) {
     ret = curr->data;
     prev->next = curr->next;
-    curr->next = NULL; 
+    curr->next = NULL;
   } else {
     printf("invalid index");
     return -1;
   }
 
-  return ret; 
+  return ret;
 }

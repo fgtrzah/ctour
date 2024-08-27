@@ -1,4 +1,5 @@
 #include "../include/c5.lookup.h"
+
 #include <assert.h>
 
 int c5_lookup(int argc, char *argv[]) {

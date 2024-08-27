@@ -1,6 +1,8 @@
 #include "../include/klargest.h"
-#include "../include/priorityqueue.h"
+
 #include <stdio.h>
+
+#include "../include/priorityqueue.h"
 
 int KLargest_getlargest(int datum[], int k, int n) {
   PriorityQueue *pq = PriorityQueue_init(2 * n, datum, n);

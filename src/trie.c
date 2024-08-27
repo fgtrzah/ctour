@@ -1,4 +1,5 @@
 #include "../include/trie.h"
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>

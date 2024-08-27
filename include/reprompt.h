@@ -6,6 +6,6 @@ typedef struct {
   void *argv;
 } Args;
 
-void reprompt(int *argc, char *argv[]);
+void reprompt(int *argc, char *argv[], char *msg);
 
 #endif // !REPROMPT_H

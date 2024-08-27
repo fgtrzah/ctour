@@ -1,12 +1,12 @@
-#include "../include/c3.tcpintro.h"
-#include "../include/computemd5.h"
 #include <assert.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-int toupperref() {
+#include "../include/c3.tcpintro.h"
+#include "../include/computemd5.h"
 
+int toupperref() {
 #if defined(_WIN32)
   WSADATA d;
   if (WSAStartup(MAKEWORD(2, 2), &d)) {
@@ -70,7 +70,6 @@ int toupperref() {
     SOCKET i;
     for (i = 1; i <= max_socket; ++i) {
       if (FD_ISSET(i, &reads)) {
-
         if (i == socket_listen) {
           struct sockaddr_storage client_address;
           socklen_t client_len = sizeof(client_address);

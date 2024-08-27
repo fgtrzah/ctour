@@ -1,6 +1,6 @@
 #include "../include/genericdpq.h"
 
-GenericDPQ *GenericDPQ_pq_create(size_t capacity, Comparator compare,
+GenericDPQ *GenericDPQ_pq_create(size_t capacity, GDPQComparator compare,
                                  HeapType type) {
   GenericDPQ *pq;
   return pq;

@@ -1,8 +1,10 @@
 #include "../include/c3.tcpservercr.h"
-#include "../include/computemd5.h"
+
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "../include/computemd5.h"
 
 int tcpservercr_init() {
   printf("Configuring local address...\n");

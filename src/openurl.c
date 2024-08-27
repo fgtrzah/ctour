@@ -1,4 +1,5 @@
 #include "../include/openurl.h"
+
 #include "../include/colorize.h"
 
 void open_url(const char *url) {

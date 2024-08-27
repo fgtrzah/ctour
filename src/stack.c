@@ -1,4 +1,5 @@
 #include "../include/stack.h"
+
 #include <stdio.h>
 
 void Stack_init(struct Stack *s) { s->top = -1; }

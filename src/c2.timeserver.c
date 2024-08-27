@@ -1,6 +1,8 @@
 #include "../include/c2.timeserver.h"
-#include "../include/openurl.h"
+
 #include <stdio.h>
+
+#include "../include/openurl.h"
 
 int timeserver() {
 #if defined(_WIN32)

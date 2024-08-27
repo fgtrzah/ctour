@@ -1,10 +1,12 @@
 #include "../include/c4.udprecvfrom.h"
-#include "../include/colorize.h"
-#include "../include/computemd5.h"
+
 #include <assert.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <string.h>
+
+#include "../include/colorize.h"
+#include "../include/computemd5.h"
 
 #define MAX_ARGS 100
 #define MAX_ARG_LEN 100

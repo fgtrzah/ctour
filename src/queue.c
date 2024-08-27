@@ -1,4 +1,5 @@
 #include "../include/queue.h"
+
 #include <stdlib.h>
 
 void enqueue(Queue *q, int x) {

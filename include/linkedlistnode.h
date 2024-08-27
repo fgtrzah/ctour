@@ -1,4 +1,4 @@
-#ifndef LLNode 
+#ifndef LLNode
 #define LLNode
 
 struct LinkedListNode {

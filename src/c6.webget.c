@@ -1,6 +1,7 @@
 #include "../include/c6.webget.h"
-#include <time.h>
+
 #include <assert.h>
+#include <time.h>
 #define TIMEOUT 5.0
 
 void parse_url(char *url, char **hostname, char **port, char **path) {
@@ -109,7 +110,6 @@ SOCKET connect_to_host(char *hostname, char *port) {
 }
 
 int c6_webget_init(int argc, char *argv[]) {
-
 #if defined(_WIN32)
   WSADATA d;
   if (WSAStartup(MAKEWORD(2, 2), &d)) {
@@ -143,7 +143,6 @@ int c6_webget_init(int argc, char *argv[]) {
   int remaining = 0;
 
   while (1) {
-
     if ((clock() - start_time) / CLOCKS_PER_SEC > TIMEOUT) {
       fprintf(stderr, "timeout after %.2f seconds\n", TIMEOUT);
       return 1;
@@ -249,7 +248,7 @@ finish:
   printf("Finished.\n");
   return 0;
 }
- 
+
 void test_c6_webget_init(int argc, char *argv[]) {
   assert(!c6_webget_init(argc, argv));
 }

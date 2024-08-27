@@ -1,7 +1,9 @@
 #include "../include/medianofstream.h"
-#include "../include/colorize.h"
+
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "../include/colorize.h"
 
 StreamMetaData *MedianOfStream_init(size_t capacity) {
   StreamMetaData *s = (StreamMetaData *)malloc(sizeof(StreamMetaData));

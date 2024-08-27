@@ -1,4 +1,5 @@
 #include "../include/dynamicpriorityqueue.h"
+
 #include <stdlib.h>
 
 #define PARENT(i) ((i - 1) / 2)

@@ -1,4 +1,5 @@
 #include "../include/ksortedlists.h"
+
 #include <stdio.h>
 
 int compare(Member *a, Member *b) { return a->datum - b->datum; }

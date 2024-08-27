@@ -1,4 +1,5 @@
 #include "../include/c5.dnsutils.h"
+
 #include <assert.h>
 
 const unsigned char *c5_report_name(const unsigned char *msg,
@@ -232,7 +233,6 @@ void c5_print_dns_message(const char *message, int msg_length) {
 }
 
 int c5_dnsutils_init(int argc, char *argv[]) {
-
   argv[2] = "any";
 
   if (argc < 3) {

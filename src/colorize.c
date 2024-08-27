@@ -1,4 +1,5 @@
 #include "../include/colorize.h"
+
 #include <stdio.h>
 
 const char *Colorize_get_color_code(Color color) {

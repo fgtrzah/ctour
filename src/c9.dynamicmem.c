@@ -1,10 +1,12 @@
 #include "../include/c9.dynamicmem.h"
-#include "../include/colorize.h"
-#include "../include/dynamicvector.h"
-#include "../include/stringifyarr.h"
+
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+
+#include "../include/colorize.h"
+#include "../include/dynamicvector.h"
+#include "../include/stringifyarr.h"
 
 /* static-extent data area */
 static int global_datum = 100;

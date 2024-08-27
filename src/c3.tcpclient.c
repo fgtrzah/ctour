@@ -1,8 +1,10 @@
 #include "../include/c3.tcpclient.h"
-#include "../include/colorize.h"
+
 #include <netdb.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "../include/colorize.h"
 
 TCPCRemoteAddress *TCPCRemoteAddress_configure_remote_address() {
   colorize("configuring remote address\n", COLOR_MAGENTA);
@@ -78,7 +80,6 @@ int tcpclient_init(int argc, char *argv[]) {
   printf("to send data, enter message followed by return key\n");
 
   while (1) {
-
     fd_set reads;
     FD_ZERO(&reads);
     FD_SET(socket_peer, &reads);

@@ -1,9 +1,10 @@
 #ifndef SEARCH_H
 #define SEARCH_H
 
-#include "trie.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "trie.h"
 
 typedef struct {
   char **datum;

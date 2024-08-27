@@ -1,8 +1,10 @@
 #include "../include/datumarray.h"
-#include "../include/stringifyarr.h"
+
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+
+#include "../include/stringifyarr.h"
 
 int count_days(int days[], int len) {
   int total = 0;
@@ -192,7 +194,6 @@ void prod(int (*r)[SIZE], const int a[][SIZE], const int b[SIZE][SIZE]) {
 }
 
 int da_multidim() {
-
   float m1[3][4] = {
       {2.4, 8.7, 9.5, 2.3}, {6.2, 4.8, 5.1, 8.9}, {7.2, 1.6, 4.4, 3.6}};
   float oneD[] = {2.4, 8.7, 9.5, 2.3, 6.2, 4.8, 5.1, 8.9, 7.2, 1.6, 4.4, 3.6};

@@ -1,7 +1,6 @@
 #include "../include/c3.tcpintro.h"
 
 int tcpclientref(int argc, char *argv[]) {
-
 #if defined(_WIN32)
   WSADATA d;
   if (WSAStartup(MAKEWORD(2, 2), &d)) {
@@ -53,7 +52,6 @@ int tcpclientref(int argc, char *argv[]) {
   printf("To send data, enter text followed by enter.\n");
 
   while (1) {
-
     fd_set reads;
     FD_ZERO(&reads);
     FD_SET(socket_peer, &reads);
@@ -92,7 +90,7 @@ int tcpclientref(int argc, char *argv[]) {
       int bytes_sent = send(socket_peer, read, strlen(read), 0);
       printf("Sent %d bytes.\n", bytes_sent);
     }
-  } // end while(1)
+  }
 
   printf("Closing socket...\n");
   CLOSESOCKET(socket_peer);
@@ -105,4 +103,6 @@ int tcpclientref(int argc, char *argv[]) {
   return 0;
 }
 
-int test_tcpclientref(int argc, char *argv[]) { return tcpclientref(argc, argv); }
+int test_tcpclientref(int argc, char *argv[]) {
+  return tcpclientref(argc, argv);
+}

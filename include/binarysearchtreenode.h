@@ -1,4 +1,4 @@
-#ifndef BSTNode 
+#ifndef BSTNode
 #define BSTNode
 
 struct BinarySearchTreeNode {
