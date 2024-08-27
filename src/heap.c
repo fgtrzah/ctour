@@ -5,6 +5,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+char *HeapElement_stringify(HeapElement *datum) {
+  char *representation = "HeapElement(element:\t";
+  sprintf(representation, "%d", datum->element);
+  sprintf(representation, ")");
+  return representation;
+}
+
 Heap *Heap_init(int capacity, int elements[], int numElements,
                 int (*comparator)(HeapElement *, HeapElement *, int),
                 int priority) {
@@ -87,24 +94,25 @@ int heap_comparator(HeapElement *a, HeapElement *b, int priority) {
 }
 
 // Test Case 1: Heap Initialization with Ascending Order
-void test_heap_initialization_ascending(int (*comparator)(HeapElement *,
-                                                          HeapElement *, int),
-                                        int priority) {
+void test_heap_initialization_descending(int (*comparator)(HeapElement *,
+                                                           HeapElement *, int),
+                                         int priority) {
   int elements[] = {1, 2, 3, 4, 5};
   Heap *h = Heap_init(10, elements, 5, comparator, priority);
   assert(h->size == 5);
+  printf("desc: %d -> %d\n", h->elements[0].element, h->elements[4].element);
   assert(h->elements[0].element == 1);
   Heap_flush(h);
 }
 
 // Test Case 2: Heap Initialization with Descending Order
-void test_heap_initialization_descending(int (*comparator)(HeapElement *,
-                                                           HeapElement *, int),
-                                         int priority) {
+void test_heap_initialization_ascending(int (*comparator)(HeapElement *,
+                                                          HeapElement *, int),
+                                        int priority) {
   int elements[] = {5, 4, 3, 2, 1};
   Heap *h = Heap_init(10, elements, 5, comparator, priority);
   assert(h->size == 5);
-  assert(h->elements[0].element == 5);
+  assert(h->elements[0].element == 1);
   Heap_flush(h);
 }
 
@@ -234,17 +242,24 @@ void test_heap_top3(int (*comparator)(HeapElement *, HeapElement *, int)) {
   }
 }
 
-void test_heap(int (*comparator)(HeapElement *, HeapElement *, int),
-               int priority) {
-  test_heap_initialization_ascending(comparator, 0);
-  test_heap_initialization_descending(comparator, 1);
-  test_heap_enqueue(comparator, 0);
-  test_heap_dequeue(comparator, 0);
-  test_heap_peek(comparator, 0);
-  test_heap_full(comparator, 0);
-  test_heap_empty(comparator, 0);
-  test_heap_enqueue_full(comparator, 0);
-  test_heap_dequeue_empty(comparator, 0);
-  test_heap_enqueue_dequeue(comparator, 0);
-  test_heap_top3(comparator);
+int Heap_base_comparator(HeapElement *a, HeapElement *b, int priority) {
+  if (priority == 0) {
+    return (a->element > b->element);
+  } else {
+    return (a->element < b->element);
+  }
+}
+
+void test_heap() {
+  test_heap_initialization_ascending(Heap_base_comparator, 0);
+  test_heap_initialization_descending(Heap_base_comparator, 0);
+  test_heap_enqueue(Heap_base_comparator, 0);
+  test_heap_dequeue(Heap_base_comparator, 0);
+  test_heap_peek(Heap_base_comparator, 0);
+  test_heap_full(Heap_base_comparator, 0);
+  test_heap_empty(Heap_base_comparator, 0);
+  test_heap_enqueue_full(Heap_base_comparator, 0);
+  test_heap_dequeue_empty(Heap_base_comparator, 0);
+  test_heap_enqueue_dequeue(Heap_base_comparator, 0);
+  test_heap_top3(Heap_base_comparator);
 }

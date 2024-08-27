@@ -17,6 +17,8 @@ typedef struct Heap {
   int priority;
 } Heap;
 
+char *HeapElement_stringify(HeapElement *datum);
+
 Heap *Heap_init(int capacity, int elements[], int numElements,
                 int (*comparator)(HeapElement *, HeapElement *, int),
                 int priority);
@@ -26,7 +28,6 @@ void Heap_enqueue(Heap *pq, int element);
 HeapElement Heap_dequeue(Heap *pq);
 HeapElement Heap_peek(Heap *pq);
 void Heap_flush(Heap *pq);
-void test_heap(int (*comparator)(HeapElement *, HeapElement *, int),
-               int priority);
+void test_heap();
 
 #endif // HEAP_H
