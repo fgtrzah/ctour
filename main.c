@@ -16,6 +16,7 @@
 #include "include/datumarray.h"
 #include "include/dynamicpriorityqueue.h"
 #include "include/heap.h"
+#include "include/index.h"
 #include "include/kclosestorigin.h"
 #include "include/klargest.h"
 #include "include/klargestinmatrix.h"
@@ -399,6 +400,7 @@ void test_medianofstream() {
 }
 
 int main(int argc, char *argv[]) {
+  test_size_datum();
   test_da();
   test_stack();
   test_linkedlist();
@@ -425,11 +427,11 @@ int main(int argc, char *argv[]) {
   printf("beginning tests for test_c4_udpservermd5\n");
   test_c4_udprecvfrom(argc, argv);
   test_c4_udpservermd5();
-  reprompt(&argc, argv, "beginning tests for test_c4_udpservermd5\n");
-  test_c5_lookup(argc, argv);
   reprompt(&argc, argv, "beginning tests for test_c5_lookup\n");
+  test_c5_lookup(argc, argv);
+  reprompt(&argc, argv, "beginning tests for test_c5_dnsutils\n");
   test_c5_dnsutils(argc, argv);
-  reprompt(&argc, argv, "beginning tests for test_c5_dnsutils");
+  reprompt(&argc, argv, "beginning tests for test_c6_webget_init");
   test_c6_webget_init(argc, argv);
   test_c7_webserver_init(argc, argv);
   test_c9_dynamicmem();

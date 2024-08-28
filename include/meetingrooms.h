@@ -11,7 +11,7 @@ typedef struct {
   Heap *orchestration;
 } Scheduler;
 
-Scheduler *MeetingRooms_orchestrate(int **datum);
-int MeetingRooms_min_rooms(int **datum);
+Scheduler *MeetingRooms_orchestrate(int **datum, size_t n);
+int MeetingRooms_min_rooms(int **datum, size_t n);
 
 #endif // !MEETINGROOMS_H
