@@ -34,6 +34,7 @@ typedef struct Heap {
   int (*comparator)(HeapElement *, HeapElement *, int);
   int priority;
 } Heap;
+
 // Helper macros for stringifying different types
 #define STRINGIFY_INT(buffer, size, value) snprintf(buffer, size, "%d", value)
 #define STRINGIFY_FLOAT(buffer, size, value)                                   \
@@ -61,16 +62,51 @@ typedef struct Heap {
     snprintf(buffer + offset, size - offset, ")");                             \
   } while (0)
 
-// General-purpose macro to stringify a field based on its type
-
-// Macro to handle the stringification of the entire structure
-#define STRINGIFY_HEAPELEMENT(result, size, element)                           \
+// Example of how you might define the other macros (provided earlier in the
+// header)
+#define STRINGIFY_FIELD(buffer, size, type, element, length)                   \
   do {                                                                         \
-    char temp[256];                                                            \
-    int offset = 0;                                                            \
-    STRINGIFY_FIELD(temp, sizeof(temp), element.type, element.element,         \
-                    3); /* Adjust length as needed */                          \
-    offset += snprintf(result + offset, size - offset, "%s", temp);            \
+    switch (type) {                                                            \
+    case INT:                                                                  \
+      STRINGIFY_INT(buffer, size, element.i);                                  \
+      break;                                                                   \
+    case FLOAT:                                                                \
+      STRINGIFY_FLOAT(buffer, size, element.f);                                \
+      break;                                                                   \
+    case HEAPELEMENTSTRING:                                                    \
+      if (element.s) {                                                         \
+        STRINGIFY_STRING(buffer, size, element.s);                             \
+      } else {                                                                 \
+        snprintf(buffer, size, "empty string");                                \
+      }                                                                        \
+      break;                                                                   \
+    case HEAPELEMENTVECTOR:                                                    \
+      if (element.il) {                                                        \
+        STRINGIFY_VECTOR(buffer, size, element.il, length);                    \
+      } else {                                                                 \
+        snprintf(buffer, size, "empty vector");                                \
+      }                                                                        \
+      break;                                                                   \
+    case HEAPELEMENTTUPLE:                                                     \
+      if (element.fl) {                                                        \
+        STRINGIFY_TUPLE(buffer, size, element.fl, length);                     \
+      } else {                                                                 \
+        snprintf(buffer, size, "empty tuple");                                 \
+      }                                                                        \
+      break;                                                                   \
+    default:                                                                   \
+      snprintf(buffer, size, "empty element - nothing to stringify");          \
+      break;                                                                   \
+    }                                                                          \
+  } while (0)
+
+#define STRINGIFY_HEAPELEMENT(result, size, datum)                             \
+  do {                                                                         \
+    if (datum == NULL) {                                                       \
+      snprintf(result, size, "HeapElement(NULL)");                             \
+    } else {                                                                   \
+      STRINGIFY_FIELD(result, size, datum->type, datum->element, 3);           \
+    }                                                                          \
   } while (0)
 
 // Function prototypes

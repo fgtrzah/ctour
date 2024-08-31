@@ -1,20 +1,21 @@
 #include "../include/heap.h"
-#include <string.h>
 
 char *HeapElement_stringify(HeapElement *datum) {
-  if (!datum) {
-    return strdup("(null)");
+  static char result[256];
+
+  // Handle NULL pointer case
+  if (datum == NULL) {
+    snprintf(result, sizeof(result), "HeapElement(NULL)");
+    return result;
   }
 
-  size_t size = 256; // Adjust the buffer size as needed
-  char *representation = (char *)malloc(size);
-  if (!representation) {
-    return NULL;
-  }
+  // Clear the buffer first
+  result[0] = '\0';
 
-  STRINGIFY_FIELD(representation, size, *datum);
+  // Use the macro to stringify the element
+  STRINGIFY_HEAPELEMENT(result, sizeof(result), datum);
 
-  return representation;
+  return result;
 }
 
 Heap *Heap_init(int capacity, int elements[], int numElements,
@@ -29,14 +30,11 @@ Heap *Heap_init(int capacity, int elements[], int numElements,
   pq->priority = priority;
 
   for (int i = 0; i < numElements; i++) {
-    Heap_enqueue(pq, (void *)(uintptr_t)elements[i]);
+    HeapElement e;
+    e.type = INT;
+    e.element.i = elements[i];
+    Heap_enqueue(pq, &e);
   }
-
-  printf("heap comparator: \n");
-
-  // int cres = pq->comparator(&pq->elements[0], &pq->elements[1], priority);
-
-  // printf("%d\n", cres);
 
   return pq;
 }
@@ -45,19 +43,25 @@ int Heap_full(Heap *pq) { return pq->size == pq->capacity; }
 int Heap_empty(Heap *pq) { return pq->size == 0; }
 
 void Heap_enqueue(Heap *pq, void *element) {
+  if (pq == NULL || element == NULL) {
+    printf("Invalid input to Heap_enqueue\n");
+    return;
+  }
+
   if (Heap_full(pq)) {
     printf("Priority Queue is full\n");
     return;
   }
+
   int i = pq->size - 1;
-  while (i >= 0 && pq->comparator(&pq->elements[i], element, pq->priority)) {
+  while (i >= 0 && pq->comparator(&pq->elements[i], (HeapElement *)element,
+                                  pq->priority)) {
     pq->elements[i + 1] = pq->elements[i];
     i--;
   }
-  HeapElement *e = (HeapElement *)malloc(sizeof(HeapElement));
-  e->type = INT;
-  e->element.i = (int)(intptr_t)element;
-  pq->elements[i + 1].element = e->element;
+
+  // Insert the element into the correct position
+  pq->elements[i + 1] = *(HeapElement *)element;
   pq->size++;
 }
 
@@ -116,9 +120,10 @@ void test_heap_initialization_ascending(int (*comparator)(HeapElement *,
                                                           HeapElement *, int),
                                         int priority) {
   int elements[] = {5, 4, 3, 2, 1};
-  Heap *h = Heap_init(10, elements, 5, comparator, priority);
+  Heap *h = Heap_init(5, elements, 5, comparator, priority);
   assert(h->size == 5);
   assert(h->elements[0].element.i == 1);
+  assert(h->elements[4].element.i == 5);
   Heap_flush(h);
 }
 
@@ -246,6 +251,16 @@ void test_heap_top3(int (*comparator)(HeapElement *, HeapElement *, int)) {
 }
 
 int Heap_base_comparator(HeapElement *a, HeapElement *b, int priority) {
+  if (!a || !b) {
+    printf("either a or b in comparator missing\n");
+    return 0;
+  }
+
+  char *a_str = HeapElement_stringify(a);
+  char *b_str = HeapElement_stringify(b);
+
+  printf("Comparing A: %s with B: %s\n", a_str, b_str);
+
   if (priority == 0) {
     return (a->element.i > b->element.i);
   } else {
