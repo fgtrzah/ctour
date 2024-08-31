@@ -58,5 +58,6 @@ void test_size_datum() {
   for (size_t i = 0; i < 2; i++) {
     free(dyn_array3D[i]);
   }
+
   free(dyn_array3D);
 }

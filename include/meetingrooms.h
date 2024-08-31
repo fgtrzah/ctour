@@ -14,4 +14,6 @@ typedef struct {
 Scheduler *MeetingRooms_orchestrate(int **datum, size_t n);
 int MeetingRooms_min_rooms(int **datum, size_t n);
 
+void test_meetingrooms();
+
 #endif // !MEETINGROOMS_H
