@@ -15,3 +15,14 @@ a tour of C, not giving the tour). basic ideas reimplemented in C.
 - programmatic e2e for tests which involve
   servers and block program execution
 - meticulous tests covering edge cases
+
+#### Disclaimer
+- llm gateway was used in the process of creating
+  first drafts of certain excersises, i'll cite
+  the relevant code once i've reached 100 or so
+  excersises
+- my compiler and os specific header files or
+  other lower level aspects of execution env
+  is not identical to every other machine
+- run without gaurdrails/verification at
+  your own peril, or vm before execution
