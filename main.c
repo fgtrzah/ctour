@@ -400,8 +400,7 @@ void test_medianofstream() {
 }
 
 int main(int argc, char *argv[]) {
-  // TODO: implement lldb + bug trace
-  // test_size_datum();
+  test_size_datum();
   test_da();
   test_stack();
   test_linkedlist();
