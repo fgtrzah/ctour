@@ -12,8 +12,8 @@
 #include "include/c7.webserver.h"
 #include "include/c9.dynamicmem.h"
 #include "include/colorize.h"
-#include "include/datumarray.h"
 #include "include/computemd5.h"
+#include "include/datumarray.h"
 #include "include/dynamicpriorityqueue.h"
 #include "include/heap.h"
 #include "include/index.h"
@@ -400,41 +400,42 @@ void test_medianofstream() {
 }
 
 int main(int argc, char *argv[]) {
+  // TODO: implement lldb + bug trace
   // test_size_datum();
-  // test_da();
-  // test_stack();
-  // test_linkedlist();
-  // test_bst();
-  // test_queue();
-  // test_trie();
-  // test_c1_lsip();
+  test_da();
+  test_stack();
+  test_linkedlist();
+  test_bst();
+  test_queue();
+  test_trie();
+  test_c1_lsip();
   test_heap();
-  // test_nclosestorigin();
-  // test_klargest();
-  // test_klargeststream();
-  // test_c2_sockinit();
-  // test_min_heap();
-  // test_max_heap();
-  // test_insert_and_extract();
-  // test_ksortedlists();
-  // test_c2_timeserver();
-  // test_c3_tcpclient();
-  // test_toupperref();
-  // test_md5();
-  // test_klargestinmatrix();
-  // test_medianofstream();
-  // printf("beginning tests for test_c4_udpservermd5\n");
-  // test_c4_udprecvfrom(argc, argv);
-  // test_c4_udpservermd5();
-  // reprompt(&argc, argv, "beginning tests for test_c5_lookup\n");
-  // test_c5_lookup(argc, argv);
-  // reprompt(&argc, argv, "beginning tests for test_c5_dnsutils\n");
-  // test_c5_dnsutils(argc, argv);
-  // reprompt(&argc, argv, "beginning tests for test_c6_webget_init");
-  // test_c6_webget_init(argc, argv);
-  // test_c7_webserver_init(argc, argv);
-  // test_c9_dynamicmem();
-  // test_search();
+  test_nclosestorigin();
+  test_klargest();
+  test_klargeststream();
+  test_c2_sockinit();
+  test_min_heap();
+  test_max_heap();
+  test_insert_and_extract();
+  test_ksortedlists();
+  test_c2_timeserver();
+  test_c3_tcpclient();
+  test_toupperref();
+  test_md5();
+  test_klargestinmatrix();
+  test_medianofstream();
+  printf("beginning tests for test_c4_udpservermd5\n");
+  test_c4_udprecvfrom(argc, argv);
+  test_c4_udpservermd5();
+  reprompt(&argc, argv, "beginning tests for test_c5_lookup\n");
+  test_c5_lookup(argc, argv);
+  reprompt(&argc, argv, "beginning tests for test_c5_dnsutils\n");
+  test_c5_dnsutils(argc, argv);
+  reprompt(&argc, argv, "beginning tests for test_c6_webget_init");
+  test_c6_webget_init(argc, argv);
+  test_c7_webserver_init(argc, argv);
+  test_c9_dynamicmem();
+  test_search();
   print_call_stack();
 
   printf("\nall tests passed successfully!\n");
