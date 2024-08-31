@@ -34,7 +34,46 @@ typedef struct Heap {
   int (*comparator)(HeapElement *, HeapElement *, int);
   int priority;
 } Heap;
+// Helper macros for stringifying different types
+#define STRINGIFY_INT(buffer, size, value) snprintf(buffer, size, "%d", value)
+#define STRINGIFY_FLOAT(buffer, size, value)                                   \
+  snprintf(buffer, size, "%.2f", value)
+#define STRINGIFY_STRING(buffer, size, value)                                  \
+  snprintf(buffer, size, "%s", value ? value : "(null)")
+#define STRINGIFY_VECTOR(buffer, size, value, length)                          \
+  do {                                                                         \
+    int offset = 0;                                                            \
+    offset += snprintf(buffer + offset, size - offset, "[");                   \
+    for (int i = 0; i < length; i++) {                                         \
+      offset += snprintf(buffer + offset, size - offset, "%d%s", value[i],     \
+                         (i < length - 1) ? ", " : "");                        \
+    }                                                                          \
+    snprintf(buffer + offset, size - offset, "]");                             \
+  } while (0)
+#define STRINGIFY_TUPLE(buffer, size, value, length)                           \
+  do {                                                                         \
+    int offset = 0;                                                            \
+    offset += snprintf(buffer + offset, size - offset, "(");                   \
+    for (int i = 0; i < length; i++) {                                         \
+      offset += snprintf(buffer + offset, size - offset, "%.2f%s", value[i],   \
+                         (i < length - 1) ? ", " : "");                        \
+    }                                                                          \
+    snprintf(buffer + offset, size - offset, ")");                             \
+  } while (0)
 
+// General-purpose macro to stringify a field based on its type
+
+// Macro to handle the stringification of the entire structure
+#define STRINGIFY_HEAPELEMENT(result, size, element)                           \
+  do {                                                                         \
+    char temp[256];                                                            \
+    int offset = 0;                                                            \
+    STRINGIFY_FIELD(temp, sizeof(temp), element.type, element.element,         \
+                    3); /* Adjust length as needed */                          \
+    offset += snprintf(result + offset, size - offset, "%s", temp);            \
+  } while (0)
+
+// Function prototypes
 char *HeapElement_stringify(HeapElement *datum);
 
 Heap *Heap_init(int capacity, int elements[], int numElements,

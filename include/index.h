@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define STRINGIFY_FIELD(field, format) #field ": " format
-
 #define STRINGIFY_STRUCT(datum, buffer, size, ...)                             \
   do {                                                                         \
     snprintf(buffer, size, __VA_ARGS__);                                       \

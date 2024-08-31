@@ -21,7 +21,7 @@ size_t size_datum(void *array, size_t dim) {
 
 void test_size_datum() { // Static 1D array
                          // Dynamically allocated 2D array
-  int **dyn_array2D = malloc(3 * sizeof(int *));
+  int **dyn_array2D = malloc(4 * sizeof(int *));
   dyn_array2D[0] = (int[]){1, 2, 3, 0}; // 0 is the sentinel value
   dyn_array2D[1] = (int[]){4, 5, 6, 0}; // 0 is the sentinel value
   dyn_array2D[2] = (int[]){7, 8, 9, 0}; // 0 is the sentinel value
@@ -31,9 +31,9 @@ void test_size_datum() { // Static 1D array
          size_datum(dyn_array2D, 2));
 
   // Dynamically allocated 3D array
-  int ***dyn_array3D = malloc(2 * sizeof(int **));
-  dyn_array3D[0] = malloc(2 * sizeof(int *));
-  dyn_array3D[1] = malloc(2 * sizeof(int *));
+  int ***dyn_array3D = malloc(3 * sizeof(int **));
+  dyn_array3D[0] = malloc(3 * sizeof(int *));
+  dyn_array3D[1] = malloc(3 * sizeof(int *));
   dyn_array3D[0][0] = (int[]){1, 2, 0}; // 0 is the sentinel value
   dyn_array3D[0][1] = (int[]){3, 4, 0}; // 0 is the sentinel value
   dyn_array3D[1][0] = (int[]){5, 6, 0}; // 0 is the sentinel value
