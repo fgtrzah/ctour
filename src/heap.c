@@ -7,7 +7,17 @@ char *HeapElement_stringify(HeapElement *datum) {
     snprintf(result, sizeof(result), "HeapElement(NULL)");
     return result;
   }
+
   result[0] = '\0';
+
+  // Add type check
+  if (datum->type < INT || datum->type > HEAPELEMENTTUPLE) {
+    snprintf(result, sizeof(result), "HeapElement(INVALID TYPE)");
+    return result;
+  }
+
+  // Use a try-catch block if your compiler supports it, or setjmp/longjmp as a
+  // fallback
   STRINGIFY_HEAPELEMENT(result, sizeof(result), datum);
 
   return result;
@@ -142,8 +152,13 @@ void test_heap_enqueue(int (*comparator)(HeapElement *, HeapElement *, int),
                        int priority) {
   int elements[] = {10, 20};
   Heap *h = Heap_init(2, elements, 2, comparator, priority);
-  int new_element = 15;
+
+  // Correctly initialize new_element as a HeapElement
+  HeapElement new_element;
+  new_element.type = INT;
+  new_element.element.i = 15;
   Heap_enqueue(h, &new_element);
+
   assert(h->size == 3);
   assert(Heap_peek(h).element.i == 10);
   Heap_flush(h);
@@ -166,6 +181,7 @@ int Heap_base_comparator(HeapElement *a, HeapElement *b, int priority) {
     return (a->element.i < b->element.i);
   }
 }
+
 void test_heap_dequeue(int (*comparator)(HeapElement *, HeapElement *, int),
                        int priority) {
   int elements[] = {10, 20, 30};
@@ -207,7 +223,9 @@ void test_heap_full(int (*comparator)(HeapElement *, HeapElement *, int),
   assert(Heap_full(h) == 1);
 
   // Enqueue should expand the heap
-  int new_element = 30;
+  HeapElement new_element;
+  new_element.type = INT;
+  new_element.element.i = 30;
   Heap_enqueue(h, &new_element);
   assert(h->size == 3);
   assert(h->capacity == 4);  // Ensure capacity was doubled
@@ -222,7 +240,9 @@ void test_heap_empty(int (*comparator)(HeapElement *, HeapElement *, int),
   Heap *h = Heap_init(10, elements, 0, comparator, priority);
   assert(Heap_empty(h) == 1);
 
-  int new_element = 10;
+  HeapElement new_element;
+  new_element.type = INT;
+  new_element.element.i = 10;
   Heap_enqueue(h, &new_element);
   assert(Heap_empty(h) == 0); // Now the heap should not be empty
 
@@ -235,7 +255,9 @@ void test_heap_enqueue_full(int (*comparator)(HeapElement *, HeapElement *,
   int elements[] = {10, 20};
   Heap *h = Heap_init(2, elements, 2, comparator, priority);
 
-  int new_element = 30;
+  HeapElement new_element;
+  new_element.type = INT;
+  new_element.element.i = 30;
   Heap_enqueue(h, &new_element);
   assert(h->size == 3);
   assert(h->capacity >= 3); // Ensure capacity was increased
@@ -267,7 +289,9 @@ void test_heap_enqueue_dequeue(int (*comparator)(HeapElement *, HeapElement *,
   int elements[] = {5};
   Heap *h = Heap_init(1, elements, 1, comparator, priority);
 
-  int new_element = 3;
+  HeapElement new_element;
+  new_element.type = INT;
+  new_element.element.i = 3;
   Heap_enqueue(h, &new_element);
   assert(h->size == 2);
   assert(Heap_peek(h).element.i == 3); // 3 should be at the root
@@ -327,6 +351,6 @@ void test_heap() {
   test_heap_empty(Heap_base_comparator, 0);
   test_heap_enqueue_full(Heap_base_comparator, 0);
   test_heap_dequeue_empty(Heap_base_comparator, 0);
-  // test_heap_enqueue_dequeue(Heap_base_comparator, 1);
+  test_heap_enqueue_dequeue(Heap_base_comparator, 0);
   // test_heap_top3(Heap_base_comparator);
 }

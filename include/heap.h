@@ -105,7 +105,9 @@ typedef struct Heap {
     if (datum == NULL) {                                                       \
       snprintf(result, size, "HeapElement(NULL)");                             \
     } else {                                                                   \
-      STRINGIFY_FIELD(result, size, datum->type, datum->element, 3);           \
+      char temp[size];                                                         \
+      STRINGIFY_FIELD(temp, size, datum->type, datum->element, 3);             \
+      snprintf(result, size, "HeapElement(%s)", temp);                         \
     }                                                                          \
   } while (0)
 
