@@ -26,3 +26,5 @@ a tour of C, not giving the tour). basic ideas reimplemented in C.
   is not identical to every other machine
 - run without gaurdrails/verification at
   your own peril, or vm before execution
+
+
